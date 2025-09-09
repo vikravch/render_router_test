@@ -7,7 +7,7 @@ import { TabContentPage } from '../pages/TabContentPage';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '',
     element: <App />,
     children: [
       {
