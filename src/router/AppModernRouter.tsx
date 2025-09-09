@@ -5,32 +5,37 @@ import { PageNotFound } from '../pages/PageNotFound';
 import { App } from '../App';
 import { TabContentPage } from '../pages/TabContentPage';
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: '',
+      element: <App />,
+      children: [
+        {
+          index: true,
+          element: <HomePage />,
+        },
+        {
+          path: 'tabs',
+          element: <TabsPage />,
+          children: [
+            {
+              path: ':id',
+              element: <TabContentPage />,
+            },
+          ],
+        },
+        {
+          path: '*',
+          element: <PageNotFound />,
+        },
+      ],
+    },
+  ],
   {
-    path: '',
-    element: <App />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: 'tabs',
-        element: <TabsPage />,
-        children: [
-          {
-            path: ':id',
-            element: <TabContentPage />,
-          },
-        ],
-      },
-      {
-        path: '*',
-        element: <PageNotFound />,
-      },
-    ],
+    basename: import.meta.env.BASE_URL, // will be '/' if Vite base is '/'
   },
-]);
+);
 
 export const GlobalRouter: React.FC = () => {
   return <RouterProvider router={router} />;
